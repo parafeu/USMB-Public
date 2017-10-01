@@ -9,6 +9,6 @@ addons:
     organization: albenoit-github
 # command to run tests
 script:
-  - pytest --cov .
+  - pytest -v --cov .
   - sonar-scanner
   - coveralls
