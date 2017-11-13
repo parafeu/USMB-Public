@@ -1,4 +1,6 @@
-Coveralls status : [![Coverage Status](https://coveralls.io/repos/github/albenoit/USMB-BachelorDIM-Lectures-Algorithms/badge.svg?branch=master)](https://coveralls.io/github/albenoit/USMB-BachelorDIM-Lectures-Algorithms?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/albenoit/USMB-BachelorDIM-Lectures-Algorithms/badge.svg?branch=master)](https://coveralls.io/github/albenoit/USMB-BachelorDIM-Lectures-Algorithms?branch=master)
+
+[![Build Status](https://travis-ci.org/albenoit/USMB-BachelorDIM-Lectures-Algorithms.svg?branch=master)](https://travis-ci.org/albenoit/USMB-BachelorDIM-Lectures-Algorithms)
 
 # USMB-BachelorDIM-Lectures-Algorithms
 Short courses on algorithms : practical recommendations to build solid, energy efficient and maintainable programs
@@ -16,4 +18,5 @@ Students are expected to be familiar with programming. The aim is to get more fa
 
 4. Get familiar with queues using RabbitMQ and CloudAMQP. *Introduction slides* [here](https://docs.google.com/presentation/d/1e-KtztT1KN91ynFhzSfDrdF8qvuYPadKe04ifyxtvrg/edit?usp=sharing)
 
-Evaluation will consist of continuous control and a final exam. A preliminary test is planned in the first session to check student entry levels.
+Evaluation will consist of continuous control and a mid term test.
+Evaluation will take into account your code quality and assignements coverage but also github pull request and commits naming conventions and code comments.
