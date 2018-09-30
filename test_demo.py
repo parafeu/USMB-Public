@@ -20,6 +20,12 @@ def load_S1_script():
     s1_algotools=imp.load_source('session_1_script', S1_script_filename)
     return  s1_algotools
 
+
+
+import s1_algotools as algo
+
+algo.average_above_zeroaverage_above_zero()
+
 #load the scripts to check
 def test_session1script_exists():
     try:
@@ -65,5 +71,6 @@ def test_S1_selective_average_with_string_values():
     # @test validates average_above_zero works fine with an empty list
     try:
         check_S1_selective_average([])
+        assert False
     except ValueError:
         assert True
