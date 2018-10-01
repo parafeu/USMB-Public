@@ -1,4 +1,4 @@
-##
+ ##
 #
 # @author Alexandre Benoit, LISTIC Lab, IUT Annecy le vieux, FRANCE
 # @brief a set of generic functions for data management
