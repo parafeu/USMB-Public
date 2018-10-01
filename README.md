@@ -1,5 +1,5 @@
 
-# USMB-BachelorDIM-Lectures-Algorithms
+# USMB-BachelorDIM-Lectures-Algorithms fork by Alexandre MUHL
 Short courses on algorithms : practical recommendations to build solid, energy efficient and maintainable programs
 
 Those lessons are addressed to the "Développeur Informatique Multisupports" (DIM) Bachelor proposed at Université Savoie Mont Blanc in France.
