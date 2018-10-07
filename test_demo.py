@@ -4,7 +4,7 @@
 """
 
 import os
-print('Starting test script from workig directory : '+os.getcwd())
+print('Starting test script from working directory : '+os.getcwd())
 
 def test_basicTrue():
     """ one of the simplest test that does nothing except saying it works..."""
@@ -25,10 +25,6 @@ def load_S1_script():
     return  s1_algotools
 
 
-
-import s1_algotools as algo
-
-algo.average_above_zeroaverage_above_zero()
 
 #load the scripts to check
 def test_session1script_exists():
