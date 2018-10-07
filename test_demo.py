@@ -3,6 +3,9 @@
 @brief get started with python testing by looking at https://docs.pytest.org/en/latest/getting-started.html#getstarted. Note that any script to be ran within the python testing framework (pytest) should follow the standard test discovery rules (https://docs.pytest.org/en/latest/goodpractices.html#test-discovery)
 """
 
+import os
+print('Starting test script from workig directory : '+os.getcwd())
+
 def test_basicTrue():
     """ one of the simplest test that does nothing except saying it works..."""
     assert True
@@ -16,6 +19,7 @@ def load_S1_script():
         @return the script as a loaded module
     """
     S1_script_filename='assignments/Session1/S1_algotools.py'
+    print('Trying to load target scripts:'+S1_script_filename)
     import imp
     s1_algotools=imp.load_source('session_1_script', S1_script_filename)
     return  s1_algotools
