@@ -1,4 +1,67 @@
-##
+
+
+def average_above_zero(tab):
+    """
+    brief: computes the average of the positve values of a array  
+    Args:
+        tab :a list of numeric value, expects at least one positive values, raise Exception if not
+    Returns:
+        the computed average as a float value
+    Raises:
+        ValueError if no positive value is found
+        ValueError if input tab is not a list
+    """
+    if not(isinstance(tab, list)):
+        raise ValueError('Expected a list as input')
+    #This is a single line comment
+    average=-99
+    valSum=0.0
+    nPositiveValues=0
+    for val in tab:
+        if val>0:
+            valSum=valSum+float(val)
+            nPositiveValues=nPositiveValues+1
+    
+    if nPositiveValues <=0:
+        raise ValueError('No positive value found')
+    average=valSum/nPositiveValues
+    
+    return average
+
+
+#test script for fct average_above_zero
+test_tab=[1,2,3,-5]#create a fake tab
+moy=average_above_zero(test_tab)
+print('Positive values average=')
+print(moy)
+print('Positive values average='+str(moy))
+print('Positive values average={v}'.format(v=moy))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ##
 #
 # @author Alexandre Benoit, LISTIC Lab, IUT Annecy le vieux, FRANCE
 # @brief a set of generic functions for data management
