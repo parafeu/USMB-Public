@@ -88,32 +88,34 @@ mylist_sum=mylist+mylist2
 """
 
 
-def average_above_zero(input_list):
-    ##
-    # compute the average of positive values
-    # @input_list : the list of values to process
-    # @return the average value of all the positive elements
+def average_above_zero(tab):
+    """
+    brief: computes the average of the lists
+    Args: 
+        tab: a list of numeric values, expects at least one positive values
+    Return: 
+        the computed average
+    Raises: 
+        ValueError if no positive value is found
+    """
 
-    #init critical variable
-    positive_values_sum=0
-    positive_values_count=0
+    if not(isinstance(tab, list)):
+        raise ValueError('Expected a list as input')
 
-    first_item=input_list[0] #just a line to generate a code smell with an unused value
+    average=-99
+    valSum=0.0
+    nPositiveValues=0
 
-    #compute the average of positive elements of a list
-    for item in input_list:
-        #select only positive items
-        if item>0:
-            positive_values_sum+=item
-            positive_values_count+=1
-        elif item==0:
-            print('This value is null:'+str(item))
-        else:
-            print('This value is negative:'+str(item))
-    #compute the final average
-    average=float(positive_values_sum)/float(positive_values_count)
-    print('Positive elements average is '+str(average))
-    return float(average)
+    for val in tab:
+        if val > 0:
+            valSum+=float(val)
+            nPositiveValues+=1
+    if nPositiveValues <= 0:
+        raise ValueError('No positive value found')
+
+    average=valSum/nPositiveValues
+
+    return average
 
 """#testing average_above_zero function:
 mylist=[1,2,3,4,-7]
