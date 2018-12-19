@@ -1,92 +1,5 @@
-
-
-def average_above_zero(tab):
-    """
-    brief: computes the average of the positve values of a array  
-    Args:
-        tab :a list of numeric value, expects at least one positive values, raise Exception if not
-    Returns:
-        the computed average as a float value
-    Raises:
-        ValueError if no positive value is found
-        ValueError if input tab is not a list
-    """
-    if not(isinstance(tab, list)):
-        raise ValueError('Expected a list as input')
-    #This is a single line comment
-    average=-99
-    valSum=0.0
-    nPositiveValues=0
-    for val in tab:
-        if val>0:
-            valSum=valSum+float(val)
-            nPositiveValues=nPositiveValues+1
-    
-    if nPositiveValues <=0:
-        raise ValueError('No positive value found')
-    average=valSum/nPositiveValues
-    
-    return average
-
-
-#test script for fct average_above_zero
-test_tab=[1,2,3,-5]#create a fake tab
-moy=average_above_zero(test_tab)
-print('Positive values average=')
-print(moy)
-print('Positive values average='+str(moy))
-print('Positive values average={v}'.format(v=moy))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- ##
-#
-# @author Alexandre Benoit, LISTIC Lab, IUT Annecy le vieux, FRANCE
-# @brief a set of generic functions for data management
-
-"""
-# a variable
-a=1 # default type : int
-
-# an empty list
-mylist = []
-
-#a filled list
-mylist2=[1,2,3]
-
-#append to a list
-mylist.append(10)
-
-# a buggy list
-mybuggylist=[1,'a', "Hi"]
-
-#operators
-b=a+2
-mylist_sum=mylist+mylist2
-"""
-
+import random
+import numpy as np
 
 def average_above_zero(tab):
     """
@@ -117,107 +30,206 @@ def average_above_zero(tab):
 
     return average
 
-"""#testing average_above_zero function:
-mylist=[1,2,3,4,-7]
-result=average_above_zero(mylist)
-message='The average of positive samples of {list_value} is {res}'.format(list_value=mylist,
-                                                                          res=result)
-print(message)
-"""
-
-def max_value(input_list):
-    ##
-    # basic function able to return the max value of a list
-    # @param input_list : the input list to be scanned
-    # @throws an exception (ValueError) on an empty list
-
-    #first check if provided list is not empty
-    if len(input_list)==0:
-        raise ValueError('provided list is empty')
-    #init max_value and its index
-    max_val=input_list[0]
-    max_idx=0
-    #compute the average of positive elements of a list
-    """for item in input_list:
-        #select only positive items
-        if max_val<item:
-            max_val=item
+def max_value(tab):
     """
-    #generic style : iterate over the range of list indexes
-    for idx in range(len(input_list)):
-        #select only positive items
-        if max_val<input_list[idx]:
-            max_val=input_list[idx]
-            max_idx=idx
+    brief: get the maximum value of the list
+    Args: 
+        tab: a list of numeric values, expects at least one positive values
+    Return: 
+        the maximum value of the list
+        the index of maximum value
+    Raises: 
+        ValueError if no positive value is found
+        ValueError if first argument is not a list
+    """
 
+    maxValue=0
+    maxValueIndex=-99
+    nPositiveValues=0
+    i=0
 
-    #generic style : iterate over the range of list indexes
-    for idx, item in enumerate(input_list):
-        #select only positive items
-        if max_val<item:
-            max_val=item
-            max_idx=idx
+    if not(isinstance(tab, list)):
+        raise ValueError('Expected a list as input')
 
-    return max_val, max_idx
-"""
-#test max_value function
-#1 basic test, expected answer=2
-mylist=[-1,2,-20]
-mymax, mymaxidx=max_value(mylist)
-mymax_tuple=max_value(mylist)
-mymax=mymax_tuple[0]
-print('Max value of {input_list} is {max_scan}'.format(input_list=mylist, max_scan=mymax))
-#==> message : "Max value of [-1, 2, -20] is (2, 1)"
+    while i < len(tab):
+        if tab[i] > 0:
+            nPositiveValues+=1
+            if tab[i] > maxValue:
+                maxValue=tab[i]
+                maxValueIndex=i
+        i+=1
+    if nPositiveValues <= 0:
+        raise ValueError('No positive value found')
+    
+    return [maxValue, maxValueIndex]
 
-#2 error test : Exception expected
-max_value([])
-"""
+def reverse_table(table):
+    """
+    brief: reverse a table
+    Args: 
+        table: a list of values
+    Return: 
+        the same list reversed
+    Raises: 
+        ValueError if first argument is not a list
+    """
 
-"""
-# hints to solve the roi_bbox function exercise: numpy basics
+    if not(isinstance(table, list)):
+        raise ValueError('Expected a list as input')
 
-#matrix processing lib
-import numpy
+    listLen=len(table)
+    loopMaxID=int(np.floor(listLen/2))
+    listLen-=1
+    for idx in range(loopMaxID):
+        element=table[listLen-idx]
+        table[listLen-idx]=table[idx]
+        table[idx]=element
+    
+    return table
 
-#create a numpy matrix with specific dimensions
-size_rows=10
-size_cols=10
-myMat=numpy.zeros([size_rows, size_cols], dtype=int)
-#set a value in a specific cell
-myMat[1,3]=1
+def roi_bbox(input_image):
+    """
+    brief: compute bounding box of a matrix
+    Args: 
+        input_image: a 2D matrix of booleans
+    Return: 
+        a numpy array of shape 4x2 filled with the four 2D coordinates
+    Raises: 
+        ValueError if first argument is not a matrix
+        ValueError if matrix values are not booleans
+    """
 
-#fil something in the matrix, the basic way (a very slow python way...)
-for row in range(5,8):
-    for col in range(7,9):
-        myMat[row,col]=1
+    if not(isinstance(input_image, np.ndarray)):
+        raise ValueError('Expected a numpy 2d array')
+    if not(input_image.dtype == np.bool):
+        raise ValueError('Expected input of type boolean')
 
-#get time to measure processing speed
-import time
-init_time=time.time()
+    minX=input_image.shape[0]
+    maxX=0
+    minY=input_image.shape[1]
+    maxY=0
 
-#filling something in the matrix, a nicer way
-myMat[2:4,5:9]=1 #assign a scalar to each cell of a subarray
-myMat[4:7,7:9]=numpy.ones([3,2]) #copy an array in a subarray
-print(myMat)
+    for y in range(input_image.shape[0]):
+        for x in range(input_image.shape[1]):
+            if input_image[y, x]:
+                if minY > y:
+                    minY = y
+                if maxY < y:
+                    maxY = y
+                if minX > x:
+                    minX = x
+                if maxX < x:
+                    maxX = x
 
-#get ellapsed time
-filling_time=time.time() -init_time
-print('data prefecting time='+str(filling_time))
+    return np.array([
+        [minX, minY],
+        [maxX, minY],
+        [minX, maxY],
+        [maxX, maxY]
+    ])
 
-#fake bounding box coordinates matrix
-xmin=0
-xmax=100
-ymin=0
-ymax=200
-#how to fill the 4x2 bbox coordinates matrix, method 1 using 1D numpy arrays (ugly?)
-bbox_coords=numpy.zeros([4, 2], dtype=int)
-bbox_coords[0,:]=numpy.array([ymin, xmin])
-bbox_coords[1,:]=numpy.array([ymin, xmax])
-bbox_coords[2,:]=numpy.array([ymax, xmin])
-bbox_coords[3,:]=numpy.array([ymax, xmax])
-#how to fill the 4x2 bbox coordinates matrix, method 2 using lists (shorter way)
-#->create a list of lists
-coordsList=[[ymin, xmin],[ymin, xmax],[ymax, xmin],[ymax, xmax]]
-#->convert to an array
-coords_array=numpy.array(coordsList)
-"""
+def alea(v):
+    """
+    brief: return random value between 0 and v
+    Args: 
+        v: max random value (integer)
+    Return: 
+        a random integer
+    Raises: 
+        ValueError if v is not an integer
+    """
+
+    if not(isinstance(v, int)):
+        raise ValueError('Expected an integer')
+    
+    return random.randint(0, v)
+
+def random_fill_sparse(table, K):
+    """
+    brief: randomly fill table with X char K times
+    Args: 
+        table: a 2D array of char
+        K: an integer
+    Return: 
+        the randomly fill table
+    Raises: 
+        ValueError if table is not a list
+        ValueError if table value is not a list
+        ValueError if K is not an integer
+    """
+
+    if not(isinstance(K, int)):
+        raise ValueError('Expected an integer')
+    
+    if not(isinstance(table, list)):
+        raise ValueError('Expected a list')
+    
+    randX=0
+    randY=0
+
+    i=0
+
+    while(i <= K):
+        randY=alea(len(table)-1)
+        if not(isinstance(table[randY], list)):
+            raise ValueError('Expected a list')
+        randX=alea(len(table[randY])-1)
+        table[randY][randX]='X'
+        i+=1
+    
+    return table
+
+# def remove_whitespace(table):
+#     """
+#     brief: remove whitespaces of a string
+#     Args: 
+#         table: a string
+#     Return: 
+#         the string without whitespaces
+#     Raises: 
+#         ValueError if table is not a string
+#     """
+
+#     if not(isinstance(table, str)):
+#         raise ValueError('Expected a string')
+
+#     i=0
+#     table=list(table)
+
+#     for cIndex, c in enumerate(table):
+#         if c == ' ':
+#             if cIndex == len(table) -1:
+#                 table = table[:-1]
+#             else:
+#                 i=cIndex
+#                 while i < len(table):
+#                     table[cIndex] = table[cIndex+i]
+#                     i+=1
+#                 table = table[:-1]
+    
+#     return table       
+
+#test script for fct average_above_zero
+testTab=[1, 5, 3, -5] #create a fake tab
+testBoundingBox=np.zeros((950, 850), dtype=np.bool)
+testBoundingBox[2:4,3:5]=np.ones((2, 2), dtype=np.bool)
+testBoundingBox[842:845,6:8]=np.ones((3, 2), dtype=np.bool)
+testRandomFill=[
+    ['O', 'O', 'O', 'O', 'O'],
+    ['O', 'O', 'O', 'O', 'O'],
+    ['O', 'O', 'O', 'O', 'O'],
+    ['O', 'O', 'O', 'O', 'O'],
+    ['O', 'O', 'O', 'O', 'O'],
+]
+moy=average_above_zero(testTab)
+max=max_value(testTab)
+reverse_table(testTab)
+boundingCoords=roi_bbox(testBoundingBox)
+randomlyFill=random_fill_sparse(testRandomFill, 8)
+print('Positive values average = {val}'.format(val=moy))
+print('Max value = {val}, index = {id}'.format(val=max[0], id=max[1]))
+print('Reversed table = {val}'.format(val=testTab))
+print('Bounding box coordinates : {val}'.format(val=boundingCoords))
+print('Randomly fill 2d table : ')
+for filllist in randomlyFill:
+    print(filllist)
